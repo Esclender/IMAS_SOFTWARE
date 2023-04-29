@@ -5,6 +5,8 @@
 package imas_software;
 
 import java.io.IOException;
+import java.util.Stack;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
@@ -20,18 +22,45 @@ public class InterfazPrincipal extends javax.swing.JFrame {
      * @throws java.io.IOException
      */
     public InterfazPrincipal() throws IOException {
+        
+
         initComponents();
+        
+        
+        
         
         IMAS_SOFTWARE Ex = new IMAS_SOFTWARE();
         
-        String nuevo = Ex.LeerExcel();
+        Stack nuevo = Ex.LeerExcel();
         DefaultTableModel table = new DefaultTableModel();
+        System.out.println(nuevo);
         
-        table.addColumn("Nombre");
-        table.addColumn("Apellido");
-        table.addColumn("Ocupacion");
+        this.Headers(table);
+        
+        this.MakeRows(table, nuevo);
         
         show_info.setModel(table);
+    }
+    
+    
+    public void MakeRows (DefaultTableModel table, Stack datos){
+        for(int i = 0; i < datos.size(); i++){
+            table.addRow((Vector<?>) datos.get(i));
+        }
+    }
+    
+    public void Headers (DefaultTableModel table) throws IOException {
+        IMAS_SOFTWARE Ex = new IMAS_SOFTWARE();
+        Stack Headers = Ex.LeerHeaders();
+        
+        
+        for (int i = 0; i < Headers.size(); i++){
+            System.out.println(Headers.get(i));
+            table.addColumn(Headers.get(i));
+        }
+        
+        show_info.setModel(table);
+        
     }
 
     /**
@@ -138,6 +167,8 @@ public class InterfazPrincipal extends javax.swing.JFrame {
                 }
             }
         });
+        
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

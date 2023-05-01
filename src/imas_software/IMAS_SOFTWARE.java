@@ -8,6 +8,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Stack;
+import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -22,33 +23,45 @@ public class IMAS_SOFTWARE {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args){
         // TODO code application logic here
         
     }
     
     public Stack LeerExcel() throws FileNotFoundException, IOException{
-           FileInputStream fileIn = new FileInputStream("D:\\\\PRUEBAXLS.xlsx");
+           FileInputStream fileIn = new FileInputStream("D:\\\\PRUEBAXLSX.xlsx");
            XSSFWorkbook wb = new XSSFWorkbook(fileIn);
            XSSFSheet sheet = wb.getSheetAt(0);
     
            int numero_filas = sheet.getLastRowNum();
            Stack tabla =new Stack ();
-            
-           for(int i = 1; i < numero_filas; i++){
-                int columnas = sheet.getRow(i).getLastCellNum();
+           
+            for(int i = 1; i < numero_filas; i++){
+                XSSFRow rows = sheet.getRow(i);
                 Stack newRow = new Stack();
-                
-                for(int j = 0; j < columnas; j++){
-                    XSSFCell celda = sheet.getRow(i).getCell(j);
+                if(rows != null){
+                    short columnas = rows.getLastCellNum();
+                    for(int j = 0; j < columnas; j++){
+                        XSSFCell celda = sheet.getRow(i).getCell(j);
+                        
+
+                        if(((j + 1) != columnas) & celda != null ){
+                            if(celda.toString() != ""){
+                                newRow.push(celda.toString());
+                            }
+                            
+                        }else{
+                            if(celda != null ){
+                                if(celda.toString() != ""){
+                                    newRow.push(celda + "\n");
+                                }
+                            }
+                            
+                        }
                     
-                    if((j + 1) == columnas){
-                        newRow.push(celda + "\n");
-                    }else{
-                        newRow.push(celda.toString());
                     }
-                    
                 }
+                
                 tabla.push(newRow);
            }
            
@@ -57,18 +70,20 @@ public class IMAS_SOFTWARE {
     }
     
     public Stack LeerHeaders() throws FileNotFoundException, IOException{
-           FileInputStream fileIn = new FileInputStream("D:\\\\PRUEBAXLS.xlsx");
+           FileInputStream fileIn = new FileInputStream("D:\\\\PRUEBAXLSX.xlsx");
            XSSFWorkbook wb = new XSSFWorkbook(fileIn);
            XSSFSheet sheet = wb.getSheetAt(0);
     
            int numero_filas = sheet.getDefaultColumnWidth();
-           Stack<String> tablaHeaders = new Stack<String>();
+           Stack<String> tablaHeaders = new Stack<>();
             
            for(int i = 0; i < numero_filas; i++){
                 XSSFCell celda = sheet.getRow(0).getCell(i);
                 
                 if(celda != null){
-                    tablaHeaders.push(celda.toString());
+                    if(celda.toString() != ""){
+                        tablaHeaders.push(celda.toString());
+                    }
                 }
                 
            } 

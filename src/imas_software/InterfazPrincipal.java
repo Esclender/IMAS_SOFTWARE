@@ -26,43 +26,23 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 
         initComponents();
         
+            IMAS_SOFTWARE Ex = new IMAS_SOFTWARE();
+            Stack nuevo = Ex.LeerExcel();
+            Stack Headers = Ex.LeerHeaders();
+            
+            System.out.println(nuevo);
+            System.out.println(Headers);
         
+            show_excel panel = new show_excel();
+            panel.setSize(650,360);
+            
+            info_container.removeAll();
+            info_container.add(panel);
+            info_container.revalidate();
+            info_container.repaint();
         
-        
-        IMAS_SOFTWARE Ex = new IMAS_SOFTWARE();
-        
-        Stack nuevo = Ex.LeerExcel();
-        DefaultTableModel table = new DefaultTableModel();
-        System.out.println(nuevo);
-        
-        this.Headers(table);
-        
-        this.MakeRows(table, nuevo);
-        
-        show_info.setModel(table);
-    }
     
-    
-    public void MakeRows (DefaultTableModel table, Stack datos){
-        for(int i = 0; i < datos.size(); i++){
-            table.addRow((Vector<?>) datos.get(i));
-        }
     }
-    
-    public void Headers (DefaultTableModel table) throws IOException {
-        IMAS_SOFTWARE Ex = new IMAS_SOFTWARE();
-        Stack Headers = Ex.LeerHeaders();
-        
-        
-        for (int i = 0; i < Headers.size(); i++){
-            System.out.println(Headers.get(i));
-            table.addColumn(Headers.get(i));
-        }
-        
-        show_info.setModel(table);
-        
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -73,9 +53,12 @@ public class InterfazPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         exit_menu = new javax.swing.JPanel();
+        exit_button = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
         options_menu = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        show_info = new javax.swing.JTable();
+        filter_button = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        info_container = new javax.swing.JScrollPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -84,51 +67,109 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 
         exit_menu.setBackground(new java.awt.Color(51, 51, 51));
 
+        exit_button.setForeground(new java.awt.Color(51, 51, 51));
+        exit_button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/log_out.png"))); // NOI18N
+        exit_button.setBorder(null);
+        exit_button.setBorderPainted(false);
+        exit_button.setContentAreaFilled(false);
+        exit_button.setDefaultCapable(false);
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logo_IMAS_.png"))); // NOI18N
+
         javax.swing.GroupLayout exit_menuLayout = new javax.swing.GroupLayout(exit_menu);
         exit_menu.setLayout(exit_menuLayout);
         exit_menuLayout.setHorizontalGroup(
             exit_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 811, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, exit_menuLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 582, Short.MAX_VALUE)
+                .addComponent(exit_button, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12))
         );
         exit_menuLayout.setVerticalGroup(
             exit_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 51, Short.MAX_VALUE)
+            .addGroup(exit_menuLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(exit_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(exit_menuLayout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(exit_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
-        getContentPane().add(exit_menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        getContentPane().add(exit_menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 810, 50));
 
         options_menu.setBackground(new java.awt.Color(153, 153, 153));
+
+        filter_button.setForeground(new java.awt.Color(51, 51, 51));
+        filter_button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/filter_image.png"))); // NOI18N
+        filter_button.setText("Filtrar");
+        filter_button.setBorder(null);
+        filter_button.setBorderPainted(false);
+        filter_button.setContentAreaFilled(false);
+        filter_button.setDefaultCapable(false);
+        filter_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                filter_buttonActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel1.setText("Opciones");
 
         javax.swing.GroupLayout options_menuLayout = new javax.swing.GroupLayout(options_menu);
         options_menu.setLayout(options_menuLayout);
         options_menuLayout.setHorizontalGroup(
             options_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 160, Short.MAX_VALUE)
+            .addGroup(options_menuLayout.createSequentialGroup()
+                .addGroup(options_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(options_menuLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(filter_button, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(options_menuLayout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addComponent(jLabel1)))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
         options_menuLayout.setVerticalGroup(
             options_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 410, Short.MAX_VALUE)
+            .addGroup(options_menuLayout.createSequentialGroup()
+                .addGap(70, 70, 70)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(filter_button, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
+                .addGap(254, 254, 254))
         );
 
         getContentPane().add(options_menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 160, 410));
 
-        show_info.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(show_info);
-
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 50, 650, 360));
+        info_container.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        getContentPane().add(info_container, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 50, 650, 360));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void filter_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filter_buttonActionPerformed
+        // TODO add your handling code here:
+        
+        try {
+            show_excel panel = new show_excel();
+            panel.setSize(650,360);
+            
+            info_container.removeAll();
+            info_container.add(panel);
+            info_container.revalidate();
+            info_container.repaint();
+        } catch (IOException ex) {
+            Logger.getLogger(InterfazPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        
+    }//GEN-LAST:event_filter_buttonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -172,9 +213,12 @@ public class InterfazPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton exit_button;
     private javax.swing.JPanel exit_menu;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton filter_button;
+    private javax.swing.JScrollPane info_container;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel options_menu;
-    private javax.swing.JTable show_info;
     // End of variables declaration//GEN-END:variables
 }

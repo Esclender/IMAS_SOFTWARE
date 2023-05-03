@@ -30,10 +30,8 @@ public class InterfazPrincipal extends javax.swing.JFrame {
             Stack nuevo = Ex.LeerExcel();
             Stack Headers = Ex.LeerHeaders();
             
-            System.out.println(nuevo);
-            System.out.println(Headers);
         
-            show_excel panel = new show_excel();
+            show_excel panel = new show_excel(nuevo, Headers);
             panel.setSize(650,360);
             
             info_container.removeAll();
@@ -53,7 +51,6 @@ public class InterfazPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         exit_menu = new javax.swing.JPanel();
-        exit_button = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         options_menu = new javax.swing.JPanel();
         filter_button = new javax.swing.JButton();
@@ -67,13 +64,6 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 
         exit_menu.setBackground(new java.awt.Color(51, 51, 51));
 
-        exit_button.setForeground(new java.awt.Color(51, 51, 51));
-        exit_button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/log_out.png"))); // NOI18N
-        exit_button.setBorder(null);
-        exit_button.setBorderPainted(false);
-        exit_button.setContentAreaFilled(false);
-        exit_button.setDefaultCapable(false);
-
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logo_IMAS_.png"))); // NOI18N
 
         javax.swing.GroupLayout exit_menuLayout = new javax.swing.GroupLayout(exit_menu);
@@ -83,20 +73,14 @@ public class InterfazPrincipal extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, exit_menuLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 582, Short.MAX_VALUE)
-                .addComponent(exit_button, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12))
+                .addContainerGap(654, Short.MAX_VALUE))
         );
         exit_menuLayout.setVerticalGroup(
             exit_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(exit_menuLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(exit_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(exit_menuLayout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(exit_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addComponent(jLabel2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         getContentPane().add(exit_menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 810, 50));
@@ -156,7 +140,11 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         try {
-            show_excel panel = new show_excel();
+            IMAS_SOFTWARE Ex = new IMAS_SOFTWARE();
+            Stack nuevo = Ex.LeerExcel();
+            Stack headers = Ex.LeerHeaders();
+            
+            filter_interface panel = new filter_interface(headers,nuevo,info_container);
             panel.setSize(650,360);
             
             info_container.removeAll();
@@ -213,7 +201,6 @@ public class InterfazPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton exit_button;
     private javax.swing.JPanel exit_menu;
     private javax.swing.JButton filter_button;
     private javax.swing.JScrollPane info_container;

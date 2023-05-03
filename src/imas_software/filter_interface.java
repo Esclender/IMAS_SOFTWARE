@@ -4,6 +4,14 @@
  */
 package imas_software;
 
+import java.awt.Color;
+import java.io.IOException;
+import java.util.Stack;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+
 /**
  *
  * @author Esclender
@@ -13,8 +21,23 @@ public class filter_interface extends javax.swing.JPanel {
     /**
      * Creates new form filter_interface
      */
-    public filter_interface() {
+    
+    public static Stack header;
+    public static Stack<Stack> data;
+    public static JScrollPane info_container;
+    
+    public filter_interface(Stack headers, Stack datos, JScrollPane panel) {
         initComponents();
+        
+        header = headers;
+        data = datos;
+        info_container = panel;
+    }
+    
+    public Stack searchData(Stack data){
+        
+        return null;
+        
     }
 
     /**
@@ -26,20 +49,53 @@ public class filter_interface extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jSeparator1 = new javax.swing.JSeparator();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         filter_options = new javax.swing.JPanel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        filters_options = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
+        option_to_search = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
 
         setForeground(new java.awt.Color(102, 255, 102));
 
         filter_options.setBackground(new java.awt.Color(255, 255, 255));
         filter_options.setForeground(new java.awt.Color(0, 153, 102));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        filters_options.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nombre", "Item 2", "Item 3", "Item 4" }));
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel1.setText("Filter by");
+        jLabel1.setText("Filtrar por");
+
+        option_to_search.setText("Parametro");
+        option_to_search.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        option_to_search.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                option_to_searchActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Filtrar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout filter_optionsLayout = new javax.swing.GroupLayout(filter_options);
         filter_options.setLayout(filter_optionsLayout);
@@ -49,17 +105,23 @@ public class filter_interface extends javax.swing.JPanel {
                 .addGap(207, 207, 207)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(257, Short.MAX_VALUE))
+                .addComponent(filters_options, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(option_to_search, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(50, Short.MAX_VALUE))
         );
         filter_optionsLayout.setVerticalGroup(
             filter_optionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(filter_optionsLayout.createSequentialGroup()
                 .addGap(137, 137, 137)
                 .addGroup(filter_optionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addContainerGap(196, Short.MAX_VALUE))
+                    .addComponent(filters_options, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)
+                    .addComponent(option_to_search, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(187, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -74,10 +136,56 @@ public class filter_interface extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void option_to_searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_option_to_searchActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_option_to_searchActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        
+            
+        String filter_option = (String) filters_options.getSelectedItem().toString().toUpperCase();
+        String parameter = option_to_search.getText().toUpperCase();
+        
+        for(int i = 0; i < data.size();i++){
+            Stack<String> v = data.get(i);
+            for(int j = 0; j < v.size() ; j++){
+                if(v.get(j).contains(parameter.toUpperCase())){
+                    System.out.println(v);
+                }
+            }
+        }
+            
+        /**System.out.println(data);**/
+            
+        show_excel panel;
+        try {
+            panel = new show_excel(data,header);
+            panel.setSize(650,360);
+            
+            info_container.removeAll();
+            info_container.add(panel);
+            info_container.revalidate();
+            info_container.repaint();
+        } catch (IOException ex) {
+            Logger.getLogger(filter_interface.class.getName()).log(Level.SEVERE, null, ex);
+        }
+ 
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel filter_options;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> filters_options;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTextField option_to_search;
     // End of variables declaration//GEN-END:variables
+
+    private void toUpperCase() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

@@ -19,16 +19,11 @@ public class show_excel extends javax.swing.JPanel {
      * Creates new form show_excel
      * @throws java.io.IOException
      */
-    public show_excel() throws IOException {
+    public show_excel(Stack nuevo, Stack headers) throws IOException {
         initComponents();
-        
-        IMAS_SOFTWARE Ex = new IMAS_SOFTWARE();
-        
-        Stack nuevo = Ex.LeerExcel();
         DefaultTableModel table = new DefaultTableModel();
         
-        
-        this.Headers(table);
+        this.Headers(table, headers);
         this.MakeRows(table, nuevo);
         
         show_info.setModel(table);
@@ -41,13 +36,11 @@ public class show_excel extends javax.swing.JPanel {
         }
     }
     
-    public void Headers (DefaultTableModel table) throws IOException {
-        IMAS_SOFTWARE Ex = new IMAS_SOFTWARE();
-        Stack Headers = Ex.LeerHeaders();
+    public void Headers (DefaultTableModel table, Stack datos) throws IOException {
         
         
-        for (int i = 0; i < Headers.size(); i++){
-            table.addColumn(Headers.get(i));
+        for (int i = 0; i < datos.size(); i++){
+            table.addColumn(datos.get(i));
         }
         
         show_info.setModel(table);

@@ -32,13 +32,13 @@ public class filter_interface extends javax.swing.JPanel {
         header = headers;
         data = datos;
         info_container = panel;
+        
+        
+        for(Object p: header){
+            filters_options.addItem((String) p);
+        }
     }
     
-    public Stack searchData(Stack data){
-        
-        return null;
-        
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -76,8 +76,6 @@ public class filter_interface extends javax.swing.JPanel {
         filter_options.setBackground(new java.awt.Color(255, 255, 255));
         filter_options.setForeground(new java.awt.Color(0, 153, 102));
 
-        filters_options.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nombre", "Item 2", "Item 3", "Item 4" }));
-
         jLabel1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Filtrar por");
@@ -102,15 +100,15 @@ public class filter_interface extends javax.swing.JPanel {
         filter_optionsLayout.setHorizontalGroup(
             filter_optionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(filter_optionsLayout.createSequentialGroup()
-                .addGap(207, 207, 207)
+                .addGap(136, 136, 136)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
+                .addGap(27, 27, 27)
                 .addComponent(filters_options, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(option_to_search, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
+                .addGap(58, 58, 58)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addContainerGap(85, Short.MAX_VALUE))
         );
         filter_optionsLayout.setVerticalGroup(
             filter_optionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -142,7 +140,7 @@ public class filter_interface extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        
+        Stack nuevo_excel = new Stack() ;
             
         String filter_option = (String) filters_options.getSelectedItem().toString().toUpperCase();
         String parameter = option_to_search.getText().toUpperCase();
@@ -150,17 +148,18 @@ public class filter_interface extends javax.swing.JPanel {
         for(int i = 0; i < data.size();i++){
             Stack<String> v = data.get(i);
             for(int j = 0; j < v.size() ; j++){
-                if(v.get(j).contains(parameter.toUpperCase())){
-                    System.out.println(v);
+                if(v.get(j).toUpperCase().contains(parameter.toUpperCase())){
+                    nuevo_excel.push(v);
                 }
             }
         }
+        
             
         /**System.out.println(data);**/
             
         show_excel panel;
         try {
-            panel = new show_excel(data,header);
+            panel = new show_excel(nuevo_excel,header);
             panel.setSize(650,360);
             
             info_container.removeAll();

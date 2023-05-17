@@ -14,15 +14,10 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-/**
- *
- * @author Esclender
- */
+
 public class IMAS_SOFTWARE {
 
-    /**
-     * @param args the command line arguments
-     */
+
     public static void main(String[] args){
         // TODO code application logic here
         
@@ -65,6 +60,7 @@ public class IMAS_SOFTWARE {
                 tabla.push(newRow);
            }
            
+            System.out.println("Tabla" + tabla );
            return tabla;
            
     }
@@ -87,7 +83,7 @@ public class IMAS_SOFTWARE {
                 }
                 
            } 
-           
+           System.out.println("Headers" + tablaHeaders);
            return tablaHeaders;
            
     }

@@ -24,7 +24,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
     public InterfazPrincipal() throws IOException {
         
 
-        initComponents();
+        initComponents();/**[]**/
         
             IMAS_SOFTWARE Ex = new IMAS_SOFTWARE();
             Stack nuevo = Ex.LeerExcel();
@@ -53,8 +53,9 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         exit_menu = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         options_menu = new javax.swing.JPanel();
-        filter_button = new javax.swing.JButton();
+        graphic_button = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        filter_button = new javax.swing.JButton();
         info_container = new javax.swing.JScrollPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -87,6 +88,23 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 
         options_menu.setBackground(new java.awt.Color(153, 153, 153));
 
+        graphic_button.setForeground(new java.awt.Color(51, 51, 51));
+        graphic_button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/graphic.png"))); // NOI18N
+        graphic_button.setText("Graficar");
+        graphic_button.setBorder(null);
+        graphic_button.setBorderPainted(false);
+        graphic_button.setContentAreaFilled(false);
+        graphic_button.setDefaultCapable(false);
+        graphic_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                graphic_buttonActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel1.setText("Opciones");
+
         filter_button.setForeground(new java.awt.Color(51, 51, 51));
         filter_button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/filter_image.png"))); // NOI18N
         filter_button.setText("Filtrar");
@@ -100,10 +118,6 @@ public class InterfazPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel1.setText("Opciones");
-
         javax.swing.GroupLayout options_menuLayout = new javax.swing.GroupLayout(options_menu);
         options_menu.setLayout(options_menuLayout);
         options_menuLayout.setHorizontalGroup(
@@ -111,21 +125,31 @@ public class InterfazPrincipal extends javax.swing.JFrame {
             .addGroup(options_menuLayout.createSequentialGroup()
                 .addGroup(options_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(options_menuLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(filter_button, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(options_menuLayout.createSequentialGroup()
                         .addGap(37, 37, 37)
-                        .addComponent(jLabel1)))
-                .addContainerGap(29, Short.MAX_VALUE))
+                        .addComponent(jLabel1))
+                    .addGroup(options_menuLayout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addComponent(graphic_button, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(18, Short.MAX_VALUE))
+            .addGroup(options_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(options_menuLayout.createSequentialGroup()
+                    .addGap(16, 16, 16)
+                    .addComponent(filter_button, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(19, Short.MAX_VALUE)))
         );
         options_menuLayout.setVerticalGroup(
             options_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(options_menuLayout.createSequentialGroup()
                 .addGap(70, 70, 70)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(filter_button, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
-                .addGap(254, 254, 254))
+                .addGap(99, 99, 99)
+                .addComponent(graphic_button, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
+                .addGap(173, 173, 173))
+            .addGroup(options_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(options_menuLayout.createSequentialGroup()
+                    .addGap(115, 115, 115)
+                    .addComponent(filter_button, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
+                    .addGap(244, 244, 244)))
         );
 
         getContentPane().add(options_menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 160, 410));
@@ -136,10 +160,30 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void graphic_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_graphic_buttonActionPerformed
+        // TODO add your handling code here:
+        try {
+            IMAS_SOFTWARE Ex = new IMAS_SOFTWARE();
+            Stack nuevo = Ex.LeerExcel();
+            Stack headers = Ex.LeerHeaders();
+            
+            graphic_interface panel = new graphic_interface(info_container, headers,nuevo);
+            panel.setSize(650,360);
+            
+            info_container.removeAll();
+            info_container.add(panel);
+            info_container.revalidate();
+            info_container.repaint();
+        } catch (IOException ex) {
+            Logger.getLogger(InterfazPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+    }//GEN-LAST:event_graphic_buttonActionPerformed
+
     private void filter_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filter_buttonActionPerformed
         // TODO add your handling code here:
-        
-        try {
+            try {
             IMAS_SOFTWARE Ex = new IMAS_SOFTWARE();
             Stack nuevo = Ex.LeerExcel();
             Stack headers = Ex.LeerHeaders();
@@ -154,9 +198,6 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(InterfazPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
-        
     }//GEN-LAST:event_filter_buttonActionPerformed
 
     /**
@@ -203,6 +244,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel exit_menu;
     private javax.swing.JButton filter_button;
+    private javax.swing.JButton graphic_button;
     private javax.swing.JScrollPane info_container;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

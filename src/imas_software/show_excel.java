@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.Stack;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
 /**
  *
@@ -25,6 +26,7 @@ public class show_excel extends javax.swing.JPanel {
         
         this.Headers(table, headers);
         this.MakeRows(table, nuevo);
+        this.Sizes(headers);
         
         show_info.setModel(table);
         
@@ -41,10 +43,18 @@ public class show_excel extends javax.swing.JPanel {
         
         for (int i = 0; i < datos.size(); i++){
             table.addColumn(datos.get(i));
+            
         }
         
         show_info.setModel(table);
         
+    }
+    
+    
+    public void Sizes(Stack datos){
+        for (int i = 0; i < datos.size(); i++){
+            show_info.getColumnModel().getColumn(i).setPreferredWidth(300);
+        }
     }
 
     /**
@@ -64,13 +74,17 @@ public class show_excel extends javax.swing.JPanel {
 
         show_info.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-
+                "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
         show_info.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        show_info.setMinimumSize(new java.awt.Dimension(300, 64));
         jScrollPane2.setViewportView(show_info);
 
         jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 650, 360));

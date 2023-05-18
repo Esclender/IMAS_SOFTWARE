@@ -4,6 +4,7 @@
  */
 package imas_software;
 
+
 import java.io.IOException;
 import java.util.Stack;
 import java.util.Vector;
@@ -26,7 +27,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 
         initComponents();/**[]**/
         
-            IMAS_SOFTWARE Ex = new IMAS_SOFTWARE();
+            Excel_functions Ex = new Excel_functions();
             Stack nuevo = Ex.LeerExcel();
             Stack Headers = Ex.LeerHeaders();
             
@@ -163,7 +164,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
     private void graphic_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_graphic_buttonActionPerformed
         // TODO add your handling code here:
         try {
-            IMAS_SOFTWARE Ex = new IMAS_SOFTWARE();
+            Excel_functions Ex = new Excel_functions();
             Stack nuevo = Ex.LeerExcel();
             Stack headers = Ex.LeerHeaders();
             
@@ -184,7 +185,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
     private void filter_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filter_buttonActionPerformed
         // TODO add your handling code here:
             try {
-            IMAS_SOFTWARE Ex = new IMAS_SOFTWARE();
+            Excel_functions Ex = new Excel_functions();
             Stack nuevo = Ex.LeerExcel();
             Stack headers = Ex.LeerHeaders();
             

@@ -134,6 +134,7 @@ public class show_graphics extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         graphics_area = new javax.swing.JPanel();
+        graphic_options = new javax.swing.JComboBox<>();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -151,6 +152,8 @@ public class show_graphics extends javax.swing.JPanel {
 
         jPanel1.add(graphics_area, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 50, 490, 260));
 
+        jPanel1.add(graphic_options, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 10, -1, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -165,6 +168,7 @@ public class show_graphics extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> graphic_options;
     private javax.swing.JPanel graphics_area;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables

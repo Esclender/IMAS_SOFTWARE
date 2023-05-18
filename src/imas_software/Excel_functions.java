@@ -1,6 +1,6 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package imas_software;
 
@@ -8,22 +8,17 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Stack;
-import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-
-public class IMAS_SOFTWARE {
-
-
-    public static void main(String[] args){
-        // TODO code application logic here
-        
-    }
-    
-    public Stack LeerExcel() throws FileNotFoundException, IOException{
+/**
+ *
+ * @author Esclender
+ */
+public class Excel_functions {
+        public Stack LeerExcel() throws FileNotFoundException, IOException{
            FileInputStream fileIn = new FileInputStream("D:\\\\PRUEBAXLSX.xlsx");
            XSSFWorkbook wb = new XSSFWorkbook(fileIn);
            XSSFSheet sheet = wb.getSheetAt(0);
@@ -87,5 +82,4 @@ public class IMAS_SOFTWARE {
            return tablaHeaders;
            
     }
-    
 }

@@ -5,6 +5,7 @@
 package imas_software;
 
 import static imas_software.filter_interface.header;
+import java.util.HashMap;
 import java.util.Stack;
 import javax.swing.JScrollPane;
 
@@ -20,6 +21,7 @@ public class graphic_interface extends javax.swing.JPanel {
     
     public static JScrollPane info_contain;
     public static Stack<Stack> data;
+    private HashMap<Integer,String> options = new HashMap<>();
     
     public graphic_interface( JScrollPane container, Stack header, Stack datos) {
         initComponents();
@@ -27,11 +29,19 @@ public class graphic_interface extends javax.swing.JPanel {
         info_contain = container;
         data = datos;
         
+        for(int i = 0; i < header.size(); i++){
+            column_1.addItem((String) header.get(i));
+            column_2.addItem((String) header.get(i));
+            options.put(i, header.get(i).toString());
+        }
+        
+        /**
         for(Object p: header){
+            
             column_1.addItem((String) p);
             column_2.addItem((String) p);
         }
-        
+        **/
     }
 
     /**
@@ -44,11 +54,9 @@ public class graphic_interface extends javax.swing.JPanel {
     private void initComponents() {
 
         info_container = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         column_1 = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
         show_graphic = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         column_2 = new javax.swing.JComboBox<>();
@@ -57,11 +65,11 @@ public class graphic_interface extends javax.swing.JPanel {
         info_container.setForeground(new java.awt.Color(255, 255, 255));
         info_container.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel1.setText("Tipo de grafico");
-        info_container.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 117, -1, 20));
-
+        column_1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                column_1ItemStateChanged(evt);
+            }
+        });
         column_1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 column_1ActionPerformed(evt);
@@ -79,23 +87,20 @@ public class graphic_interface extends javax.swing.JPanel {
         jLabel3.setText("Columna 1");
         info_container.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 120, -1, -1));
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        info_container.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 150, 100, 30));
-
         show_graphic.setText("Graficar");
         show_graphic.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 show_graphicActionPerformed(evt);
             }
         });
-        info_container.add(show_graphic, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 220, 100, 40));
+        info_container.add(show_graphic, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 220, 100, 40));
 
         jLabel4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Columna 2");
-        info_container.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 120, -1, -1));
+        info_container.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 120, -1, -1));
 
-        info_container.add(column_2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 150, 100, 30));
+        info_container.add(column_2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 150, 100, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -115,6 +120,20 @@ public class graphic_interface extends javax.swing.JPanel {
 
     private void column_1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_column_1ActionPerformed
         // TODO add your handling code here:
+        System.out.println(column_1.getSelectedIndex());
+
+        
+        if(column_2.getItemCount() == column_1.getItemCount()){
+            column_2.removeItem(column_1.getSelectedItem());
+        }else{
+            column_2.removeAllItems();
+            for(int i = 0; i < options.size(); i++){
+                if(i != column_1.getSelectedIndex()){
+                    column_2.addItem(options.get(i));
+                }
+            }
+        }
+        
     }//GEN-LAST:event_column_1ActionPerformed
 
     private void show_graphicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_show_graphicActionPerformed
@@ -146,13 +165,17 @@ public class graphic_interface extends javax.swing.JPanel {
             info_contain.repaint();
     }//GEN-LAST:event_show_graphicActionPerformed
 
+    private void column_1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_column_1ItemStateChanged
+        // TODO add your handling code here:
+        
+        
+    }//GEN-LAST:event_column_1ItemStateChanged
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> column_1;
     private javax.swing.JComboBox<String> column_2;
     private javax.swing.JPanel info_container;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

@@ -55,7 +55,6 @@ public class Excel_functions {
                 tabla.push(newRow);
            }
            
-            System.out.println("Tabla" + tabla );
            return tabla;
            
     }
@@ -78,7 +77,6 @@ public class Excel_functions {
                 }
                 
            } 
-           System.out.println("Headers" + tablaHeaders);
            return tablaHeaders;
            
     }

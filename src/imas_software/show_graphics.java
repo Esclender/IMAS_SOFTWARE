@@ -20,14 +20,13 @@ import org.jfree.data.category.DefaultCategoryDataset;
  * @author Esclender
  */
 public class show_graphics extends javax.swing.JPanel {
-
-    /**
-     * Creates new form show_graphics
-     */
+    
+    Stack<String> opcionesGrafico = new Stack();
+    Stack<c2_attributes> columnas = new Stack();
+    
     public show_graphics(Stack<Stack> data) {
         initComponents();
         Stack<Stack> cantidad = new Stack();
-        Stack columnas = new Stack();
         
         for(Stack<String> d: data){
             Stack newStack = new Stack();
@@ -47,15 +46,17 @@ public class show_graphics extends javax.swing.JPanel {
            
         }
         
+        
+        
         /*Busca dentro de data los arrays que representan la C1 Y C2, Une los arrays que tengan el el mismo INDEX 0  */ 
         for(Stack d: data){
+            opcionesGrafico.push(d.get(1).toString());
             for(Stack c:cantidad){
                 if(c.get(0) == d.get(0)){
-                       c.push(d.get(1));
+                    c.push(d.get(1));
                 }
             }
         }
-        
         
         
         for(int i = 0; i < cantidad.size(); i++){
@@ -64,30 +65,60 @@ public class show_graphics extends javax.swing.JPanel {
             nuevo.name = (String) d.get(0);
             
             for(int j = 1; j < d.size(); j++){
+                System.out.println("gou " + d.get(j));
                 nuevo.setAmount((String) d.get(j));
             }
             
             columnas.push(nuevo);
         }
-
-        System.out.println("Souter" + columnas);
         
-        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-
         
-        dataset.addValue(4, "Ropa de verano", "Marco");
-
-        HacerGrafico(columnas);
+        opcionesGrafico = EliminarRepetidos(opcionesGrafico);
+        
+        for(String op:opcionesGrafico ){
+            graphic_options.addItem(op);
+        }
+        
+        
+        
         
     }
+   
+    public void FiltrarGrafico(String filter){
+        Stack<c2_attributes> r = new Stack();
+        
+        for(c2_attributes c: columnas){
+            for(Stack i: c.amounts){
+                if(i.get(0).equals(filter)){
+                    c2_attributes arr = new c2_attributes();
+                    arr.name = c.name;
+                    arr.amounts.push(i);
+                    r.push(arr);
+                }
+            }
+        }
+        
+        HacerGrafico(r);
+    }
+    
+    public Stack EliminarRepetidos(Stack arr){
+        Stack valor = new Stack();
+        
+           for(int i = 0; i < arr.size(); i++){
+                if(!valor.contains(arr.get(i))){
+                    valor.push(arr.get(i));
+                }
+            }
+        
+        return valor;
+    }
+    
     
     public void HacerGrafico(Stack<c2_attributes> columns){
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 
         
-        
         for(c2_attributes c: columns){
-            
             for(Stack i: c.amounts){
                 
                 dataset.addValue(
@@ -152,7 +183,12 @@ public class show_graphics extends javax.swing.JPanel {
 
         jPanel1.add(graphics_area, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 50, 490, 260));
 
-        jPanel1.add(graphic_options, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 10, -1, -1));
+        graphic_options.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                graphic_optionsItemStateChanged(evt);
+            }
+        });
+        jPanel1.add(graphic_options, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 10, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -165,6 +201,13 @@ public class show_graphics extends javax.swing.JPanel {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void graphic_optionsItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_graphic_optionsItemStateChanged
+        // TODO add your handling code here:
+        if(evt.getStateChange() == 1){
+            FiltrarGrafico(evt.getItem().toString());
+        }
+    }//GEN-LAST:event_graphic_optionsItemStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
